@@ -1,0 +1,29 @@
+<!-- wp:template-part {"slug":"header","tagName":"header"} /-->
+
+<!-- wp:group {"tagName":"main","layout":{"type":"constrained"}} -->
+<main class="wp-block-group">
+    <!-- wp:group {"style":{"spacing":{"padding":{"top":"var:preset|spacing|60","bottom":"var:preset|spacing|60"}}},"backgroundColor":"primary","textColor":"light","layout":{"type":"constrained"}} -->
+    <div class="wp-block-group has-light-color has-primary-background-color has-text-color has-background" style="padding-top:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--60)">
+        <!-- wp:heading {"level":1,"textAlign":"center"} -->
+        <h1 class="has-text-align-center">
+            <?= ICL_LANGUAGE_CODE === 'en' ? 'Browse Homes for Sale in West Island & Vaudreuil Soulanges' : 'Parcourez les maisons à vendre dans l\'Ouest-de-l\'Île et Vaudreuil-Soulanges' ?>
+        </h1>
+        <!-- /wp:heading -->
+        
+        <!-- wp:paragraph {"align":"center"} -->
+        <p class="has-text-align-center">
+            <?= ICL_LANGUAGE_CODE === 'en' ? 'Start your real estate journey by exploring some of the homes for sale across the West Island and Vaudreuil-Soulanges regions. If you see any you like, simply fill out the form on that property page and we will reach out to schedule your visit!' : 'Commencez votre parcours immobilier en explorant les maisons à vendre dans les régions de l\'Ouest-de-l\'Île et de Vaudreuil-Soulanges. Si une propriété vous intéresse, remplissez simplement le formulaire sur la page de cette maison et on vous contactera pour planifier une visite!' ?>
+        </p>
+        <!-- /wp:paragraph -->
+    </div>
+    <!-- /wp:group -->
+
+    <!-- wp:group {"layout":{"type":"constrained"}} -->
+    <div class="wp-block-group">
+        <!-- wp:ptre/properties-grid {"status":"<?php echo isset($_GET['status']) ? $_GET['status'] : '' ?>","searchQuery":"<?php echo isset($_GET['q']) ? $_GET['q'] : '' ?>"} /-->
+    </div>
+    <!-- /wp:group -->
+</main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->

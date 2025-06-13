@@ -1,0 +1,108 @@
+<!-- wp:template-part {"slug":"header","tagName":"header"} /-->
+
+<!-- wp:group {"tagName":"main","layout":{"type":"constrained"}} -->
+<main class="wp-block-group">
+    <!-- wp:group {"style":{"spacing":{"padding":{"top":"var:preset|spacing|60","bottom":"var:preset|spacing|60"}}},"layout":{"type":"constrained"}} -->
+    <div class="wp-block-group" style="padding-top:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--60)">
+        <!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"space-between"}} -->
+        <div class="wp-block-group">
+            <!-- wp:group {"layout":{"type":"constrained","wideSize":"50%"}} -->
+            <div class="wp-block-group">
+                <!-- wp:image {"sizeSlug":"full","className":"position-relative"} -->
+                <figure class="wp-block-image size-full position-relative">
+                    <img src="<?php the_field('image'); ?>" alt="<?php the_title(); ?>"/>
+                </figure>
+                <!-- /wp:image -->
+            </div>
+            <!-- /wp:group -->
+            
+            <!-- wp:group {"layout":{"type":"constrained","wideSize":"45%"}} -->
+            <div class="wp-block-group">
+                <!-- wp:post-title {"level":1} /-->
+                
+                <!-- wp:paragraph {"className":"designation"} -->
+                <p class="designation"><?php the_field('designation'); ?></p>
+                <!-- /wp:paragraph -->
+                
+                <!-- wp:group {"className":"bio"} -->
+                <div class="wp-block-group bio">
+                    <?php the_field('bio'); ?>
+                </div>
+                <!-- /wp:group -->
+                
+                <!-- wp:separator -->
+                <hr class="wp-block-separator"/>
+                <!-- /wp:separator -->
+                
+                <!-- wp:list -->
+                <ul>
+                    <li>
+                        <a href="mailto:<?php the_field('email') ?>">
+                            <!-- wp:icon {"icon":"email"} /-->
+                            <?php the_field('email') ?>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="tel:<?php the_field('phone') ?>">
+                            <!-- wp:icon {"icon":"phone"} /-->
+                            <?php the_field('phone') ?>
+                        </a>
+                    </li>
+                </ul>
+                <!-- /wp:list -->
+            </div>
+            <!-- /wp:group -->
+        </div>
+        <!-- /wp:group -->
+    </div>
+    <!-- /wp:group -->
+
+    <?php if (get_field('agent_code')): ?>
+        <!-- wp:ptre/agent-properties {"agentCode":"<?php echo esc_attr(get_field('agent_code')); ?>"} /-->
+    <?php endif; ?>
+
+    <!-- wp:group {"style":{"spacing":{"padding":{"top":"var:preset|spacing|60","bottom":"var:preset|spacing|60"}}},"layout":{"type":"constrained"}} -->
+    <div class="wp-block-group" style="padding-top:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--60)">
+        <!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"space-between"}} -->
+        <div class="wp-block-group">
+            <!-- wp:heading {"level":2} -->
+            <h2><?= ICL_LANGUAGE_CODE === 'en' ? 'Latest posts' : 'Articles récents' ?></h2>
+            <!-- /wp:heading -->
+            
+            <!-- wp:buttons -->
+            <div class="wp-block-buttons">
+                <!-- wp:button {"className":"btn-default"} -->
+                <div class="wp-block-button btn-default">
+                    <a class="wp-block-button__link wp-element-button" href="<?= get_permalink(get_option('page_for_posts')); ?>">
+                        <?= ICL_LANGUAGE_CODE === 'en' ? 'Browse all posts' : 'Consulter tous les articles' ?>
+                    </a>
+                </div>
+                <!-- /wp:button -->
+            </div>
+            <!-- /wp:buttons -->
+        </div>
+        <!-- /wp:group -->
+        
+        <!-- wp:query {"query":{"post_type":"post","posts_per_page":3,"post_status":"publish"},"layout":{"type":"constrained"}} -->
+        <div class="wp-block-query">
+            <!-- wp:post-template {"className":"row-cols-md-2 row-cols-lg-3 row-cols-1"} -->
+                <!-- wp:group {"className":"col"} -->
+                <div class="wp-block-group col">
+                    <!-- wp:post-featured-image {"isLink":true,"width":"","height":"","sizeSlug":"full"} /-->
+                    
+                    <!-- wp:post-date {"format":"M d, Y","className":"date"} /-->
+                    
+                    <!-- wp:post-title {"level":3,"isLink":true} /-->
+                    
+                    <!-- wp:post-excerpt {"moreText":"<?php echo ICL_LANGUAGE_CODE === 'en' ? 'Read More' : 'Lire la suite'; ?>","className":"shortIntro"} /-->
+                </div>
+                <!-- /wp:group -->
+            <!-- /wp:post-template -->
+        </div>
+        <!-- /wp:query -->
+    </div>
+    <!-- /wp:group -->
+</main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->
