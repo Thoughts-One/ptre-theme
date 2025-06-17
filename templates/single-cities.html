@@ -32,9 +32,9 @@
     </div>
     <!-- /wp:group -->
 
-    <!-- wp:ptre/city-properties {"status":"EV","municipalityCode":"<?php echo esc_attr(get_field('region_code')); ?>"} /-->
+    <!-- wp:ptre/city-properties {"status":"EV","municipalityCode":"<?php echo did_action('acf/init') ? esc_attr(get_field('region_code')) : ''; ?>"} /-->
 
-    <!-- wp:ptre/city-properties {"status":"VE","municipalityCode":"<?php echo esc_attr(get_field('region_code')); ?>"} /-->
+    <!-- wp:ptre/city-properties {"status":"VE","municipalityCode":"<?php echo did_action('acf/init') ? esc_attr(get_field('region_code')) : ''; ?>"} /-->
 
     <!-- wp:query {"query":{"post_type":"ellis-presents","posts_per_page":-1,"meta_key":"city","meta_value":"<?php echo strtolower(get_the_title()); ?>"},"layout":{"type":"constrained"}} -->
     <div class="wp-block-query">
@@ -54,7 +54,7 @@
     </div>
     <!-- /wp:query -->
 
-    <?php if (get_field('video_code')): ?>
+    <?php if (did_action('acf/init') && get_field('video_code')): ?>
         <!-- wp:html -->
         <script type="application/ld+json">
         {

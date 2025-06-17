@@ -57,7 +57,7 @@
     </div>
     <!-- /wp:group -->
 
-    <?php if (get_field('agent_code')): ?>
+    <?php if (did_action('acf/init') && get_field('agent_code')): ?>
         <!-- wp:ptre/agent-properties {"agentCode":"<?php echo esc_attr(get_field('agent_code')); ?>"} /-->
     <?php endif; ?>
 
