@@ -1,92 +1,61 @@
 <!-- wp:template-part {"slug":"header","tagName":"header"} /-->
 
-<!-- Hero Section -->
+<!-- wp:html -->
 <?php if (have_rows('hero-section')): ?>
     <?php while (have_rows('hero-section')): the_row();
         $title = get_sub_field('headline');
         $subhead = get_sub_field('subhead');
         $content = get_sub_field('content');
-        $banner_image = get_field('banner_image');
-        $phone_number = get_field('phone', 'option');
+        $banner_image = get_field('banner_image'); // Assuming this is a top-level ACF field for the page
+        $phone_number = get_field('phone', 'option'); // Fetch phone from theme settings
         $button_text = get_sub_field('button_text');
-        $button_url = get_sub_field('button_url');
+        $button_url  = get_sub_field('button_url');
     ?>
-    <!-- wp:group {"className":"hero-section"} -->
-    <div class="hero-section">
-        <!-- wp:columns -->
-        <div class="wp-block-columns">
-            <!-- wp:column {"width":"50%"} -->
-            <div class="wp-block-column" style="flex-basis:50%">
-                <?php if ($title): ?>
-                    <!-- wp:heading -->
-                    <h1><?php echo esc_html($title); ?></h1>
-                    <!-- /wp:heading -->
-                <?php endif; ?>
-                
-                <?php if ($subhead): ?>
-                    <!-- wp:heading {"level":2} -->
-                    <h2><?php echo esc_html($subhead); ?></h2>
-                    <!-- /wp:heading -->
-                <?php endif; ?>
-                
-                <?php if ($content): ?>
-                    <!-- wp:paragraph -->
-                    <p><?php echo wp_kses_post($content); ?></p>
-                    <!-- /wp:paragraph -->
-                <?php endif; ?>
-                
-                <!-- wp:buttons -->
-                <div class="wp-block-buttons">
-                    <?php if ($phone_number): ?>
-                        <!-- wp:button -->
-                        <div class="wp-block-button">
-                            <a class="wp-block-button__link" href="tel:<?php echo esc_attr(preg_replace('/\D/', '', $phone_number)); ?>">
+    <section class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 col-md-12 text-left">
+                    <?php if ($title): ?>
+                        <h1><?php echo esc_html($title); ?></h1>
+                    <?php endif; ?>
+
+                    <?php if ($subhead): ?>
+                        <h2><?php echo esc_html($subhead); ?></h2>
+                    <?php endif; ?>
+
+                    <?php if ($content): ?>
+                        <p><?php echo wp_kses_post($content); ?></p>
+                    <?php endif; ?>
+
+                    <div class="cta-buttons">
+                        <?php if ($phone_number): ?>
+                            <a href="tel:<?php echo preg_replace('/\D/', '', $phone_number); ?>" class="btn-default">
                                 <i class="fa fa-phone"></i> <?php echo esc_html($phone_number); ?>
                             </a>
-                        </div>
-                        <!-- /wp:button -->
-                    <?php endif; ?>
-                    
-                    <?php if ($button_url && $button_text): ?>
-                        <!-- wp:button {"className":"btn-white"} -->
-                        <div class="wp-block-button btn-white">
-                            <a class="wp-block-button__link" href="<?php echo esc_url($button_url); ?>">
+                        <?php endif; ?>
+                        <?php if ($button_url && $button_text): ?>
+                            <a href="<?php echo esc_url($button_url); ?>" class="btn-default btn-white">
                                 <?php echo esc_html($button_text); ?>
                             </a>
-                        </div>
-                        <!-- /wp:button -->
+                        <?php endif; ?>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12 text-center">
+                    <?php if ($banner_image): ?>
+                        <img src="<?php echo esc_url($banner_image); ?>" alt="Hero Image" class="hero-image">
                     <?php endif; ?>
                 </div>
-                <!-- /wp:buttons -->
             </div>
-            <!-- /wp:column -->
-            
-            <!-- wp:column {"width":"50%"} -->
-            <div class="wp-block-column" style="flex-basis:50%">
-                <?php if ($banner_image): ?>
-                    <!-- wp:image {"align":"center","className":"hero-image"} -->
-                    <figure class="wp-block-image aligncenter hero-image">
-                        <img src="<?php echo esc_url($banner_image); ?>" alt="Hero Image"/>
-                    </figure>
-                    <!-- /wp:image -->
-                <?php endif; ?>
-            </div>
-            <!-- /wp:column -->
         </div>
-        <!-- /wp:columns -->
-    </div>
-    <!-- /wp:group -->
+    </section>
     <?php endwhile; ?>
 <?php endif; ?>
 
-<!-- Reviews Section -->
-<!-- wp:group {"className":"reviews"} -->
-<div class="wp-block-group reviews">
-    <!-- wp:shortcode -->
-    [grw id=1293]
-    <!-- /wp:shortcode -->
-</div>
-<!-- /wp:group -->
+<section class="reviews">
+    <div class="container">
+        <?php echo do_shortcode('[grw id=1293]'); ?>
+    </div>
+</section>
 
 <?php if (have_rows('seller_experience')): ?>
     <?php while (have_rows('seller_experience')): the_row();
@@ -96,45 +65,20 @@
         $button_text = get_sub_field('button_text');
         $button_url = get_sub_field('button_url');
     ?>
-    <!-- wp:group {"className":"marketing-sells"} -->
-    <div class="wp-block-group marketing-sells" data-aos="fade-up" data-aos-delay="200">
-        <!-- wp:columns -->
-        <div class="wp-block-columns">
-            <!-- wp:column {"width":"50%"} -->
-            <div class="wp-block-column" style="flex-basis:50%">
-                <!-- wp:heading {"level":2} -->
-                <h2><?php echo esc_html($title); ?></h2>
-                <!-- /wp:heading -->
-                
-                <!-- wp:paragraph -->
-                <?php echo wp_kses_post($content); ?>
-                <!-- /wp:paragraph -->
-                
-                <!-- wp:button -->
-                <div class="wp-block-button">
-                    <a class="wp-block-button__link" href="<?php echo esc_url($button_url); ?>">
-                        <?php echo esc_html($button_text); ?>
-                    </a>
+    <section class="marketing-sells" data-aos="fade-up" data-aos-delay="200">
+        <div class="container">
+            <div class="row justify-content-between align-items-center">
+                <div class="col-lg-5 col-md-5 col-12 order-2 order-lg-1 text-center text-lg-start">
+                    <h2><?php echo esc_html($title); ?></h2>
+                    <?php echo wp_kses_post($content); ?>
+                    <a href="<?php echo esc_url($button_url); ?>" class="btn-default"><?php echo esc_html($button_text); ?></a>
                 </div>
-                <!-- /wp:button -->
+                <div class="col-lg-6 col-md-6 col-12 order-1 order-lg-2">
+                    <img src="<?php echo esc_url($image); ?>"/>
+                </div>
             </div>
-            <!-- /wp:column -->
-            
-            <!-- wp:column {"width":"50%"} -->
-            <div class="wp-block-column" style="flex-basis:50%">
-                <?php if ($image): ?>
-                    <!-- wp:image -->
-                    <figure class="wp-block-image">
-                        <img src="<?php echo esc_url($image); ?>"/>
-                    </figure>
-                    <!-- /wp:image -->
-                <?php endif; ?>
-            </div>
-            <!-- /wp:column -->
         </div>
-        <!-- /wp:columns -->
-    </div>
-    <!-- /wp:group -->
+    </section>
     <?php endwhile; ?>
 <?php endif; ?>
 
@@ -146,45 +90,20 @@
         $button_text = get_sub_field('button_text');
         $button_url = get_sub_field('button_url');
     ?>
-    <!-- wp:group {"className":"marketing-sells bg-white"} -->
-    <div class="wp-block-group marketing-sells bg-white" data-aos="fade-up" data-aos-delay="200">
-        <!-- wp:columns -->
-        <div class="wp-block-columns">
-            <!-- wp:column {"width":"50%"} -->
-            <div class="wp-block-column" style="flex-basis:50%">
-                <?php if ($image): ?>
-                    <!-- wp:image -->
-                    <figure class="wp-block-image">
-                        <img src="<?php echo esc_url($image); ?>"/>
-                    </figure>
-                    <!-- /wp:image -->
-                <?php endif; ?>
-            </div>
-            <!-- /wp:column -->
-            
-            <!-- wp:column {"width":"50%"} -->
-            <div class="wp-block-column" style="flex-basis:50%">
-                <!-- wp:heading {"level":2} -->
-                <h2><?php echo esc_html($title); ?></h2>
-                <!-- /wp:heading -->
-                
-                <!-- wp:paragraph -->
-                <?php echo wp_kses_post($content); ?>
-                <!-- /wp:paragraph -->
-                
-                <!-- wp:button -->
-                <div class="wp-block-button">
-                    <a class="wp-block-button__link" href="<?php echo esc_url($button_url); ?>">
-                        <?php echo esc_html($button_text); ?>
-                    </a>
+    <section class="marketing-sells bg-white" data-aos="fade-up" data-aos-delay="200">
+        <div class="container">
+            <div class="row justify-content-between align-items-center">
+                <div class="col-lg-6 col-md-6 col-12">
+                    <img src="<?php echo esc_url($image); ?>"/>
                 </div>
-                <!-- /wp:button -->
+                <div class="col-lg-5 col-md-5 col-12 text-center text-lg-start">
+                    <h2><?php echo esc_html($title); ?></h2>
+                    <?php echo wp_kses_post($content); ?>
+                    <a href="<?php echo esc_url($button_url); ?>" class="btn-default"><?php echo esc_html($button_text); ?></a>
+                </div>
             </div>
-            <!-- /wp:column -->
         </div>
-        <!-- /wp:columns -->
-    </div>
-    <!-- /wp:group -->
+    </section>
     <?php endwhile; ?>
 <?php endif; ?>
 
@@ -195,52 +114,59 @@
         $button_text = get_sub_field('button_text');
         $button_url = get_sub_field('button_url');
     ?>
-    <!-- wp:group {"className":"informed-consumers"} -->
-    <div class="wp-block-group informed-consumers" data-aos="fade-up" data-aos-delay="200">
-        <!-- wp:heading {"textAlign":"center"} -->
-        <h2 class="has-text-align-center"><?php echo esc_html($title); ?></h2>
-        <!-- /wp:heading -->
-        
-        <!-- wp:paragraph {"align":"center"} -->
-        <p class="has-text-align-center"><?php echo wp_kses_post($content); ?></p>
-        <!-- /wp:paragraph -->
-        
-        <!-- wp:query {"query":{"perPage":1,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":false}} -->
-        <div class="wp-block-query">
-            <!-- wp:post-template -->
-                <!-- wp:columns -->
-                <div class="wp-block-columns">
-                    <!-- wp:column {"width":"66.66%"} -->
-                    <div class="wp-block-column" style="flex-basis:66.66%">
-                        <!-- wp:post-title {"level":3} /-->
-                        <!-- wp:post-excerpt /-->
-                    </div>
-                    <!-- /wp:column -->
-                    
-                    <!-- wp:column {"width":"33.33%"} -->
-                    <div class="wp-block-column" style="flex-basis:33.33%">
-                        <!-- wp:post-featured-image /-->
-                    </div>
-                    <!-- /wp:column -->
+    <section class="informed-consumers" data-aos="fade-up" data-aos-delay="200">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <h2><?php echo esc_html($title); ?></h2>
                 </div>
-                <!-- /wp:columns -->
-            <!-- /wp:post-template -->
-        </div>
-        <!-- /wp:query -->
-        
-        <!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} -->
-        <div class="wp-block-buttons">
-            <!-- wp:button -->
-            <div class="wp-block-button">
-                <a class="wp-block-button__link" href="<?php echo esc_url($button_url); ?>">
-                    <?php echo esc_html($button_text); ?>
-                </a>
             </div>
-            <!-- /wp:button -->
+            <div class="row justify-content-center">
+                <div class="col-lg-6 col-md-12 col-12 text-center">
+                    <?php echo wp_kses_post($content); ?>
+                </div>
+            </div>
+            <?php
+            $args = array('post_type' => 'post', 'posts_per_page' => 1);
+            $the_query = new WP_Query($args);
+            ?>
+            <?php if ($the_query->have_posts()) : ?>
+                <?php while ($the_query->have_posts()) : $the_query->the_post(); ?>
+                    <div class="row mt-5">
+                        <a href="<?php the_permalink(); ?>" class="d-flex align-items-center justify-content-between info-card-link">
+                            <div class="col-lg-8 col-md-12 col-12 order-lg-2">
+                                <?php $thumb = wp_get_attachment_image_src(get_post_thumbnail_id(get_the_ID()), 'full'); ?>
+                                <img src="<?php echo esc_url($thumb['0']); ?>" class="border-24"/>
+                            </div>
+                            <div class="col-lg-4 col-md-12 col-12 order-lg-1">
+                                <div class="info-card">
+                                    <h3><?php the_title(); ?></h3>
+                                    <?php the_excerpt(); ?>
+                                    <hr/>
+                                    <div class="info-details justify-content-between d-flex">
+                                        <p><?php echo get_the_date('M d, Y'); ?></p>
+                                        <div class="btn-link" href="<?php the_permalink(); ?>">
+                                            <p><?php if (ICL_LANGUAGE_CODE == 'en'): ?>Read More <?php else : ?>Lire la suite <?php endif; ?>
+                                                <img src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/img/arrow-right-grey.svg">
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                <?php endwhile;
+                wp_reset_postdata(); ?>
+            <?php else: ?>
+                <p><?php _e('Sorry, no posts matched your criteria.'); ?></p>
+            <?php endif; ?>
+            <div class="row mt-5">
+                <div class="col-12 text-center">
+                    <a href="<?php echo esc_url($button_url); ?>" class="btn-default"><?php echo esc_html($button_text); ?></a>
+                </div>
+            </div>
         </div>
-        <!-- /wp:buttons -->
-    </div>
-    <!-- /wp:group -->
+    </section>
     <?php endwhile; ?>
 <?php endif; ?>
 
@@ -252,45 +178,22 @@
         $button_text = get_sub_field('button_text');
         $button_url = get_sub_field('button_url');
     ?>
-    <!-- wp:group {"className":"get-to-know"} -->
-    <div class="wp-block-group get-to-know" data-aos="fade-up" data-aos-delay="200">
-        <!-- wp:columns -->
-        <div class="wp-block-columns">
-            <!-- wp:column {"width":"50%"} -->
-            <div class="wp-block-column" style="flex-basis:50%">
-                <!-- wp:heading {"level":2} -->
-                <h2><?php echo esc_html($title); ?></h2>
-                <!-- /wp:heading -->
-                
-                <!-- wp:paragraph -->
-                <?php echo wp_kses_post($content); ?>
-                <!-- /wp:paragraph -->
-                
-                <!-- wp:button -->
-                <div class="wp-block-button">
-                    <a class="wp-block-button__link" href="<?php echo esc_url($button_url); ?>">
-                        <?php echo esc_html($button_text); ?>
-                    </a>
+    <section class="get-to-know" data-aos="fade-up" data-aos-delay="200">
+        <div class="container">
+            <div class="row align-items-center justify-content-between g-0">
+                <div class="col-lg-5 col-md-12 col-12">
+                    <h2><?php echo esc_html($title); ?></h2>
+                    <?php echo wp_kses_post($content); ?>
+                    <a href="<?php echo esc_url($button_url); ?>" class="btn-default"><?php echo esc_html($button_text); ?></a>
                 </div>
-                <!-- /wp:button -->
-            </div>
-            <!-- /wp:column -->
-            
-            <!-- wp:column {"width":"50%"} -->
-            <div class="wp-block-column" style="flex-basis:50%">
-                <?php if ($image): ?>
-                    <!-- wp:image {"className":"fig-background"} -->
-                    <figure class="wp-block-image fig-background">
+                <div class="col-lg-6 col-md-12 col-12">
+                    <figure class="fig-background">
                         <img src="<?php echo esc_url($image); ?>"/>
                     </figure>
-                    <!-- /wp:image -->
-                <?php endif; ?>
+                </div>
             </div>
-            <!-- /wp:column -->
         </div>
-        <!-- /wp:columns -->
-    </div>
-    <!-- /wp:group -->
+    </section>
     <?php endwhile; ?>
 <?php endif; ?>
 
@@ -300,29 +203,21 @@
         $button_text = get_sub_field('button_text');
         $button_url = get_sub_field('button_url');
     ?>
-    <!-- wp:group {"className":"explore propeties-section"} -->
-    <div class="wp-block-group explore propeties-section">
-        <!-- wp:heading {"level":2} -->
-        <h2><?php echo esc_html($title); ?></h2>
-        <!-- /wp:heading -->
-        
-        <!-- wp:buttons -->
-        <div class="wp-block-buttons">
-            <!-- wp:button -->
-            <div class="wp-block-button">
-                <a class="wp-block-button__link" href="<?php echo esc_url($button_url); ?>">
-                    <?php echo esc_html($button_text); ?>
-                </a>
+    <section class="explore propeties-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <h2><?php echo esc_html($title); ?></h2>
+                        <a href="<?php echo esc_url($button_url); ?>" class="btn-default"><?php echo esc_html($button_text); ?></a>
+                    </div>
+                </div>
             </div>
-            <!-- /wp:button -->
+            <div class="row row-cols-md-1 row-cols-lg-3 row-cols-1 mt-5">
+                <?php echo do_shortcode('[properties template="grid" status="EV" limit="3"]'); ?>
+            </div>
         </div>
-        <!-- /wp:buttons -->
-        
-        <!-- wp:shortcode -->
-        [properties template="grid" status="EV" limit="3"]
-        <!-- /wp:shortcode -->
-    </div>
-    <!-- /wp:group -->
+    </section>
     <?php endwhile; ?>
 <?php endif; ?>
 
@@ -332,92 +227,91 @@
         $button_text = get_sub_field('button_text');
         $button_url = get_sub_field('button_url');
     ?>
-    <!-- wp:group {"className":"explore"} -->
-    <div class="wp-block-group explore">
-        <!-- wp:heading {"level":2} -->
-        <h2><?php echo esc_html($title); ?></h2>
-        <!-- /wp:heading -->
-        
-        <!-- wp:buttons -->
-        <div class="wp-block-buttons">
-            <!-- wp:button -->
-            <div class="wp-block-button">
-                <a class="wp-block-button__link" href="<?php echo esc_url($button_url); ?>">
-                    <?php echo esc_html($button_text); ?>
-                </a>
-            </div>
-            <!-- /wp:button -->
-        </div>
-        <!-- /wp:buttons -->
-        
-        <!-- wp:query {"query":{"perPage":3,"pages":0,"offset":0,"postType":"ellis-presents","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":false}} -->
-        <div class="wp-block-query">
-            <!-- wp:post-template -->
-                <!-- wp:columns -->
-                <div class="wp-block-columns">
-                    <!-- wp:column -->
-                    <div class="wp-block-column">
-                        <!-- wp:post-featured-image {"className":"card-img-top"} /-->
-                        <!-- wp:post-title {"level":3} /-->
-                        <!-- wp:post-excerpt /-->
-                        <!-- wp:post-date /-->
+    <section class="explore">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <h2><?php echo esc_html($title); ?></h2>
+                        <a href="<?php echo esc_url($button_url); ?>" class="btn-default"><?php echo esc_html($button_text); ?></a>
                     </div>
-                    <!-- /wp:column -->
                 </div>
-                <!-- /wp:columns -->
-            <!-- /wp:post-template -->
+            </div>
+            <div class="row row-cols-md-1 row-cols-lg-3 row-cols-1 mt-5">
+                <?php
+                $args = array('post_type' => 'ellis-presents', 'posts_per_page' => 3, 'post_status' => 'publish');
+                $the_query = new WP_Query($args);
+                ?>
+                <?php if ($the_query->have_posts()) : ?>
+                    <?php while ($the_query->have_posts()) : $the_query->the_post(); ?>
+                        <div class="col">
+                            <a href="<?php the_permalink(); ?>" class="card">
+                                <?php $thumb = wp_get_attachment_image_src(get_post_thumbnail_id(get_the_ID()), 'full'); ?>
+                                <img src="<?php echo esc_url($thumb[0]); ?>" class="card-img-top" alt="">
+                                <div class="card-body">
+                                    <div class="date"><?php echo get_the_date('M d, Y'); ?></div>
+                                    <h3><?php the_title(); ?></h3>
+                                    <div class="shortIntro">
+                                        <?php $short_content = get_field('short_content'); ?>
+                                        <?php echo wp_kses_post($short_content); ?>
+                                    </div>
+                                    <hr/>
+                                    <p class="btn-link"><?php if (ICL_LANGUAGE_CODE == 'en'): ?>Read More <?php else : ?>Lire la suite <?php endif; ?>
+                                        <img src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/img/arrow-right-grey.svg">
+                                    </p>
+                                </div>
+                            </a>
+                        </div>
+                    <?php endwhile;
+                    wp_reset_postdata(); ?>
+                <?php endif; ?>
+            </div>
         </div>
-        <!-- /wp:query -->
-    </div>
-    <!-- /wp:group -->
+    </section>
     <?php endwhile; ?>
 <?php endif; ?>
 
-<!-- wp:group {"className":"instagram-feed"} -->
-<div class="wp-block-group instagram-feed">
-    <!-- wp:heading {"textAlign":"center"} -->
-    <h2 class="has-text-align-center">Connect with Us on Instagram</h2>
-    <!-- /wp:heading -->
-    
-    <!-- wp:shortcode -->
-    [instagram-feed feed=1]
-    <!-- /wp:shortcode -->
-</div>
-<!-- /wp:group -->
-
-<!-- wp:group {"className":"foot-cta"} -->
-<div class="wp-block-group foot-cta" data-aos="fade-up" data-aos-delay="200">
-    <?php $wtitle = get_field('widget_title', 'option'); ?>
-    <!-- wp:heading {"level":2} -->
-    <h2><?php echo esc_html($wtitle); ?></h2>
-    <!-- /wp:heading -->
-    
-    <!-- wp:buttons -->
-    <div class="wp-block-buttons">
-        <?php $phone = get_field('phone', 'option'); ?>
-        <?php if ($phone): ?>
-            <!-- wp:button {"className":"btn-white"} -->
-            <div class="wp-block-button btn-white">
-                <a class="wp-block-button__link" href="tel:<?php echo esc_attr(preg_replace('/\D/', '', $phone)); ?>">
-                    <i class="fa fa-phone"></i> <?php echo esc_html($phone); ?>
-                </a>
+<section class="instagram-feed">
+    <div class="container">
+        <div class="row pb-5 mb-1">
+            <div class="col-lg-12 text-center text-lg-start text-md-start col-12" data-aos="fade-up" data-aos-delay="200">
+                <h2>Connect with Us on Instagram</h2>
             </div>
-            <!-- /wp:button -->
-        <?php endif; ?>
-        
-        <?php $email = get_field('email', 'option'); ?>
-        <?php if ($email): ?>
-            <!-- wp:button {"className":"btn-white"} -->
-            <div class="wp-block-button btn-white">
-                <a class="wp-block-button__link" href="mailto:<?php echo esc_attr($email); ?>">
-                    <i class="fa fa-envelope"></i> <?php echo esc_html($email); ?>
-                </a>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <?php echo do_shortcode('[instagram-feed feed=1]'); ?>
             </div>
-            <!-- /wp:button -->
-        <?php endif; ?>
+        </div>
     </div>
-    <!-- /wp:buttons -->
-</div>
-<!-- /wp:group -->
+</section>
+
+<section class="foot-cta" data-aos="fade-up" data-aos-delay="200">
+    <div class="container">
+        <div class="cta-wrapper">
+            <div class="row align-items-center justify-content-between justify-content-md-center">
+                <div class="col-lg-5 col-md-10 col-12  ">
+                    <?php $wtitle = get_field('widget_title', 'option'); ?>
+                    <h2><?php echo esc_html($wtitle); ?></h2>
+                </div>
+                <div class="col-lg-6 col-md-12 col-12">
+                    <div class="d-flex justify-content-between">
+                        <?php $phone = get_field('phone', 'option'); ?>
+                        <?php if ($phone) { ?>
+                            <a href="tel:<?php echo preg_replace('/\D/', '', $phone); ?>" class="btn-default btn-white"><i
+                                        class="fa fa-bookmark-o"></i> <?php echo esc_html($phone); ?></a>
+                        <?php } ?>
+                        <?php $email = get_field('email', 'option'); ?>
+                        <?php if ($email) { ?>
+                            <a href="mailto:<?php echo esc_attr($email); ?>" class="btn-default btn-white"><b><i
+                                            class="fa fa-chevron-left"></i> <?php echo esc_html($email); ?></b></a>
+                        <?php } ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- /wp:html -->
 
 <!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->
