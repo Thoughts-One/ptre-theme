@@ -1,514 +1,423 @@
 <!-- wp:template-part {"slug":"header","tagName":"header"} /-->
 
-<!-- wp:group {"tagName":"main","layout":{"type":"constrained"}} -->
-<main class="wp-block-group">
-    <!-- Hero Section -->
-    <!-- wp:group {"className":"hero-section","layout":{"type":"constrained"}} -->
-    <div class="wp-block-group hero-section">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-6 col-md-12 text-left">
-                    <?php if (get_field('hero_headline')): ?>
-                        <!-- wp:heading {"level":1} -->
-                        <h1><?php echo esc_html(get_field('hero_headline')); ?></h1>
-                        <!-- /wp:heading -->
-                    <?php endif; ?>
-                    
-                    <?php if (get_field('hero_subhead')): ?>
-                        <!-- wp:heading {"level":2} -->
-                        <h2><?php echo esc_html(get_field('hero_subhead')); ?></h2>
-                        <!-- /wp:heading -->
-                    <?php endif; ?>
-                    
-                    <?php if (get_field('hero_content')): ?>
-                        <!-- wp:paragraph -->
-                        <p><?php echo wp_kses_post(get_field('hero_content')); ?></p>
-                        <!-- /wp:paragraph -->
-                    <?php endif; ?>
-                    
-                    <div class="cta-buttons">
-                        <?php $phone_number = get_field('phone', 'option'); ?>
-                        <?php if ($phone_number): ?>
-                            <!-- wp:buttons -->
-                            <div class="wp-block-buttons">
-                                <!-- wp:button -->
-                                <div class="wp-block-button">
-                                    <a class="wp-block-button__link" href="tel:<?php echo preg_replace('/\D/', '', $phone_number); ?>">
-                                        <i class="fa fa-phone"></i> <?php echo esc_html($phone_number); ?>
-                                    </a>
-                                </div>
-                                <!-- /wp:button -->
-                            </div>
-                            <!-- /wp:buttons -->
-                        <?php endif; ?>
-                    </div>
-                </div>
+<!-- Hero Section -->
+<?php if (have_rows('hero-section')): ?>
+    <?php while (have_rows('hero-section')): the_row();
+        $title = get_sub_field('headline');
+        $subhead = get_sub_field('subhead');
+        $content = get_sub_field('content');
+        $banner_image = get_field('banner_image');
+        $phone_number = get_field('phone', 'option');
+        $button_text = get_sub_field('button_text');
+        $button_url = get_sub_field('button_url');
+    ?>
+    <!-- wp:group {"className":"hero-section"} -->
+    <div class="hero-section">
+        <!-- wp:columns -->
+        <div class="wp-block-columns">
+            <!-- wp:column {"width":"50%"} -->
+            <div class="wp-block-column" style="flex-basis:50%">
+                <?php if ($title): ?>
+                    <!-- wp:heading -->
+                    <h1><?php echo esc_html($title); ?></h1>
+                    <!-- /wp:heading -->
+                <?php endif; ?>
                 
-                <div class="col-lg-6 col-md-12 text-center">
-                    <?php $banner_image = get_field('banner_image'); ?>
-                    <?php if ($banner_image): ?>
-                        <!-- wp:image {"sizeSlug":"full","linkDestination":"none"} -->
-                        <figure class="wp-block-image size-full">
-                            <img src="<?php echo esc_url($banner_image); ?>" alt="Hero Image" class="hero-image"/>
-                        </figure>
-                        <!-- /wp:image -->
-                    <?php endif; ?>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- /wp:group -->
-
-    <!-- Reviews Section -->
-    <!-- wp:group {"className":"reviews","layout":{"type":"constrained"}} -->
-    <div class="wp-block-group reviews">
-        <div class="container">
-            <!-- wp:shortcode -->
-            [grw id=1293]
-            <!-- /wp:shortcode -->
-        </div>
-    </div>
-    <!-- /wp:group -->
-
-    <!-- Seller Experience Section -->
-    <!-- wp:group {"className":"marketing-sells","layout":{"type":"constrained"}} -->
-    <div class="wp-block-group marketing-sells">
-        <div class="container">
-            <div class="row justify-content-between align-items-center">
-                <div class="col-lg-5 col-md-5 col-12 order-2 order-lg-1 text-center text-lg-start">
-                    <?php if (get_field('seller_title')): ?>
-                        <!-- wp:heading {"level":2} -->
-                        <h2><?php echo esc_html(get_field('seller_title')); ?></h2>
-                        <!-- /wp:heading -->
-                    <?php endif; ?>
-                    
-                    <?php if (get_field('seller_content')): ?>
-                        <!-- wp:paragraph -->
-                        <p><?php echo wp_kses_post(get_field('seller_content')); ?></p>
-                        <!-- /wp:paragraph -->
-                    <?php endif; ?>
-                    
-                    <?php if (get_field('seller_button_text') && get_field('seller_button_url')): ?>
-                        <!-- wp:buttons -->
-                        <div class="wp-block-buttons">
-                            <!-- wp:button -->
-                            <div class="wp-block-button">
-                                <a class="wp-block-button__link" href="<?php echo esc_url(get_field('seller_button_url')); ?>">
-                                    <?php echo esc_html(get_field('seller_button_text')); ?>
-                                </a>
-                            </div>
-                            <!-- /wp:button -->
-                        </div>
-                        <!-- /wp:buttons -->
-                    <?php endif; ?>
-                </div>
+                <?php if ($subhead): ?>
+                    <!-- wp:heading {"level":2} -->
+                    <h2><?php echo esc_html($subhead); ?></h2>
+                    <!-- /wp:heading -->
+                <?php endif; ?>
                 
-                <div class="col-lg-6 col-md-6 col-12 order-1 order-lg-2">
-                    <?php $seller_image = get_field('seller_image'); ?>
-                    <?php if ($seller_image): ?>
-                        <!-- wp:image {"sizeSlug":"full","linkDestination":"none"} -->
-                        <figure class="wp-block-image size-full">
-                            <img src="<?php echo esc_url($seller_image); ?>"/>
-                        </figure>
-                        <!-- /wp:image -->
-                    <?php endif; ?>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- /wp:group -->
-
-    <!-- Buyer Experience Section -->
-    <!-- wp:group {"className":"marketing-sells bg-white","layout":{"type":"constrained"}} -->
-    <div class="wp-block-group marketing-sells bg-white">
-        <div class="container">
-            <div class="row justify-content-between align-items-center">
-                <div class="col-lg-6 col-md-6 col-12">
-                    <?php $buyer_image = get_field('buyer_image'); ?>
-                    <?php if ($buyer_image): ?>
-                        <!-- wp:image {"sizeSlug":"full","linkDestination":"none"} -->
-                        <figure class="wp-block-image size-full">
-                            <img src="<?php echo esc_url($buyer_image); ?>"/>
-                        </figure>
-                        <!-- /wp:image -->
-                    <?php endif; ?>
-                </div>
+                <?php if ($content): ?>
+                    <!-- wp:paragraph -->
+                    <p><?php echo wp_kses_post($content); ?></p>
+                    <!-- /wp:paragraph -->
+                <?php endif; ?>
                 
-                <div class="col-lg-5 col-md-5 col-12 text-center text-lg-start">
-                    <?php if (get_field('buyer_title')): ?>
-                        <!-- wp:heading {"level":2} -->
-                        <h2><?php echo esc_html(get_field('buyer_title')); ?></h2>
-                        <!-- /wp:heading -->
-                    <?php endif; ?>
-                    
-                    <?php if (get_field('buyer_content')): ?>
-                        <!-- wp:paragraph -->
-                        <p><?php echo wp_kses_post(get_field('buyer_content')); ?></p>
-                        <!-- /wp:paragraph -->
-                    <?php endif; ?>
-                    
-                    <?php if (get_field('buyer_button_text') && get_field('buyer_button_url')): ?>
-                        <!-- wp:buttons -->
-                        <div class="wp-block-buttons">
-                            <!-- wp:button -->
-                            <div class="wp-block-button">
-                                <a class="wp-block-button__link" href="<?php echo esc_url(get_field('buyer_button_url')); ?>">
-                                    <?php echo esc_html(get_field('buyer_button_text')); ?>
-                                </a>
-                            </div>
-                            <!-- /wp:button -->
-                        </div>
-                        <!-- /wp:buttons -->
-                    <?php endif; ?>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- /wp:group -->
-
-    <!-- Ask Peter Section -->
-    <!-- wp:group {"className":"informed-consumers","layout":{"type":"constrained"}} -->
-    <div class="wp-block-group informed-consumers">
-        <div class="container">
-            <div class="row">
-                <div class="col-12 text-center">
-                    <?php if (get_field('ask_peter_title')): ?>
-                        <!-- wp:heading {"level":2} -->
-                        <h2><?php echo esc_html(get_field('ask_peter_title')); ?></h2>
-                        <!-- /wp:heading -->
-                    <?php endif; ?>
-                </div>
-            </div>
-            
-            <div class="row justify-content-center">
-                <div class="col-lg-6 col-md-12 col-12 text-center">
-                    <?php if (get_field('ask_peter_content')): ?>
-                        <!-- wp:paragraph -->
-                        <p><?php echo wp_kses_post(get_field('ask_peter_content')); ?></p>
-                        <!-- /wp:paragraph -->
-                    <?php endif; ?>
-                </div>
-            </div>
-            
-            <!-- Latest Post Block -->
-            <?php
-            $args = array('post_type' => 'post', 'posts_per_page' => 1);
-            $the_query = new WP_Query($args);
-            ?>
-            <?php if ($the_query->have_posts()) : ?>
-                <?php while ($the_query->have_posts()) : $the_query->the_post(); ?>
-                    <div class="row mt-5">
-                        <a href="<?php the_permalink(); ?>" class="d-flex align-items-center justify-content-between info-card-link">
-                            <div class="col-lg-8 col-md-12 col-12 order-lg-2">
-                                <?php $thumb = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), 'full'); ?>
-                                <?php if ($thumb): ?>
-                                    <!-- wp:image {"sizeSlug":"full","linkDestination":"none"} -->
-                                    <figure class="wp-block-image size-full">
-                                        <img src="<?php echo esc_url($thumb[0]); ?>" class="border-24"/>
-                                    </figure>
-                                    <!-- /wp:image -->
-                                <?php endif; ?>
-                            </div>
-                            <div class="col-lg-4 col-md-12 col-12 order-lg-1">
-                                <div class="info-card">
-                                    <!-- wp:heading {"level":3} -->
-                                    <h3><?php the_title(); ?></h3>
-                                    <!-- /wp:heading -->
-                                    
-                                    <!-- wp:paragraph -->
-                                    <?php the_excerpt(); ?>
-                                    <!-- /wp:paragraph -->
-                                    
-                                    <hr/>
-                                    
-                                    <div class="info-details justify-content-between d-flex">
-                                        <!-- wp:paragraph -->
-                                        <p><?php echo get_the_date('M d, Y'); ?></p>
-                                        <!-- /wp:paragraph -->
-                                        
-                                        <div class="btn-link" href="<?php the_permalink(); ?>">
-                                            <!-- wp:paragraph -->
-                                            <p>Read More <img src="<?php echo get_template_directory_uri(); ?>/assets/img/arrow-right-grey.svg"></p>
-                                            <!-- /wp:paragraph -->
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                <?php endwhile; ?>
-                <?php wp_reset_postdata(); ?>
-            <?php endif; ?>
-            
-            <div class="row mt-5">
-                <div class="col-12 text-center">
-                    <?php if (get_field('ask_peter_button_text') && get_field('ask_peter_button_url')): ?>
-                        <!-- wp:buttons -->
-                        <div class="wp-block-buttons">
-                            <!-- wp:button -->
-                            <div class="wp-block-button">
-                                <a class="wp-block-button__link" href="<?php echo esc_url(get_field('ask_peter_button_url')); ?>">
-                                    <?php echo esc_html(get_field('ask_peter_button_text')); ?>
-                                </a>
-                            </div>
-                            <!-- /wp:button -->
-                        </div>
-                        <!-- /wp:buttons -->
-                    <?php endif; ?>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- /wp:group -->
-
-    <!-- About Section -->
-    <!-- wp:group {"className":"get-to-know","layout":{"type":"constrained"}} -->
-    <div class="wp-block-group get-to-know">
-        <div class="container">
-            <div class="row align-items-center justify-content-between g-0">
-                <div class="col-lg-5 col-md-12 col-12">
-                    <?php if (get_field('about_title')): ?>
-                        <!-- wp:heading {"level":2} -->
-                        <h2><?php echo esc_html(get_field('about_title')); ?></h2>
-                        <!-- /wp:heading -->
-                    <?php endif; ?>
-                    
-                    <?php if (get_field('about_content')): ?>
-                        <!-- wp:paragraph -->
-                        <p><?php echo wp_kses_post(get_field('about_content')); ?></p>
-                        <!-- /wp:paragraph -->
-                    <?php endif; ?>
-                    
-                    <?php if (get_field('about_button_text') && get_field('about_button_url')): ?>
-                        <!-- wp:buttons -->
-                        <div class="wp-block-buttons">
-                            <!-- wp:button -->
-                            <div class="wp-block-button">
-                                <a class="wp-block-button__link" href="<?php echo esc_url(get_field('about_button_url')); ?>">
-                                    <?php echo esc_html(get_field('about_button_text')); ?>
-                                </a>
-                            </div>
-                            <!-- /wp:button -->
-                        </div>
-                        <!-- /wp:buttons -->
-                    <?php endif; ?>
-                </div>
-                
-                <div class="col-lg-6 col-md-12 col-12">
-                    <figure class="fig-background">
-                        <?php $about_image = get_field('about_image'); ?>
-                        <?php if ($about_image): ?>
-                            <!-- wp:image {"sizeSlug":"full","linkDestination":"none"} -->
-                            <figure class="wp-block-image size-full">
-                                <img src="<?php echo esc_url($about_image); ?>"/>
-                            </figure>
-                            <!-- /wp:image -->
-                        <?php endif; ?>
-                    </figure>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- /wp:group -->
-
-    <!-- Properties Section -->
-    <!-- wp:group {"className":"explore propeties-section","layout":{"type":"constrained"}} -->
-    <div class="wp-block-group explore propeties-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="d-flex align-items-center justify-content-between">
-                        <?php if (get_field('properties_title')): ?>
-                            <!-- wp:heading {"level":2} -->
-                            <h2><?php echo esc_html(get_field('properties_title')); ?></h2>
-                            <!-- /wp:heading -->
-                        <?php endif; ?>
-                        
-                        <?php if (get_field('properties_button_text') && get_field('properties_button_url')): ?>
-                            <!-- wp:buttons -->
-                            <div class="wp-block-buttons">
-                                <!-- wp:button -->
-                                <div class="wp-block-button">
-                                    <a class="wp-block-button__link" href="<?php echo esc_url(get_field('properties_button_url')); ?>">
-                                        <?php echo esc_html(get_field('properties_button_text')); ?>
-                                    </a>
-                                </div>
-                                <!-- /wp:button -->
-                            </div>
-                            <!-- /wp:buttons -->
-                        <?php endif; ?>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="row row-cols-md-1 row-cols-lg-3 row-cols-1 mt-5">
-                <!-- wp:shortcode -->
-                [properties template="grid" status="EV" limit="3"]
-                <!-- /wp:shortcode -->
-            </div>
-        </div>
-    </div>
-    <!-- /wp:group -->
-
-    <!-- Ellis Presents Section -->
-    <!-- wp:group {"className":"explore","layout":{"type":"constrained"}} -->
-    <div class="wp-block-group explore">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="d-flex align-items-center justify-content-between">
-                        <?php if (get_field('ellis_presents_title')): ?>
-                            <!-- wp:heading {"level":2} -->
-                            <h2><?php echo esc_html(get_field('ellis_presents_title')); ?></h2>
-                            <!-- /wp:heading -->
-                        <?php endif; ?>
-                        
-                        <?php if (get_field('ellis_presents_button_text') && get_field('ellis_presents_button_url')): ?>
-                            <!-- wp:buttons -->
-                            <div class="wp-block-buttons">
-                                <!-- wp:button -->
-                                <div class="wp-block-button">
-                                    <a class="wp-block-button__link" href="<?php echo esc_url(get_field('ellis_presents_button_url')); ?>">
-                                        <?php echo esc_html(get_field('ellis_presents_button_text')); ?>
-                                    </a>
-                                </div>
-                                <!-- /wp:button -->
-                            </div>
-                            <!-- /wp:buttons -->
-                        <?php endif; ?>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="row row-cols-md-1 row-cols-lg-3 row-cols-1 mt-5">
-                <?php
-                $args = array('post_type' => 'ellis-presents', 'posts_per_page' => 3, 'post_status' => 'publish');
-                $the_query = new WP_Query($args);
-                ?>
-                <?php if ($the_query->have_posts()) : ?>
-                    <?php while ($the_query->have_posts()) : $the_query->the_post(); ?>
-                        <div class="col">
-                            <a href="<?php the_permalink(); ?>" class="card">
-                                <?php $thumb = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), 'full'); ?>
-                                <?php if ($thumb): ?>
-                                    <!-- wp:image {"sizeSlug":"full","linkDestination":"none"} -->
-                                    <figure class="wp-block-image size-full">
-                                        <img src="<?php echo esc_url($thumb[0]); ?>" class="card-img-top" alt=""/>
-                                    </figure>
-                                    <!-- /wp:image -->
-                                <?php endif; ?>
-                                
-                                <div class="card-body">
-                                    <!-- wp:paragraph {"className":"date"} -->
-                                    <p class="date"><?php echo get_the_date('M d, Y'); ?></p>
-                                    <!-- /wp:paragraph -->
-                                    
-                                    <!-- wp:heading {"level":3} -->
-                                    <h3><?php the_title(); ?></h3>
-                                    <!-- /wp:heading -->
-                                    
-                                    <div class="shortIntro">
-                                        <?php $short_content = get_field('short_content'); ?>
-                                        <?php if ($short_content): ?>
-                                            <!-- wp:paragraph -->
-                                            <p><?php echo $short_content; ?></p>
-                                            <!-- /wp:paragraph -->
-                                        <?php endif; ?>
-                                    </div>
-                                    
-                                    <hr/>
-                                    
-                                    <!-- wp:paragraph {"className":"btn-link"} -->
-                                    <p class="btn-link">Read More <img src="<?php echo get_template_directory_uri(); ?>/assets/img/arrow-right-grey.svg"></p>
-                                    <!-- /wp:paragraph -->
-                                </div>
+                <!-- wp:buttons -->
+                <div class="wp-block-buttons">
+                    <?php if ($phone_number): ?>
+                        <!-- wp:button -->
+                        <div class="wp-block-button">
+                            <a class="wp-block-button__link" href="tel:<?php echo esc_attr(preg_replace('/\D/', '', $phone_number)); ?>">
+                                <i class="fa fa-phone"></i> <?php echo esc_html($phone_number); ?>
                             </a>
                         </div>
-                    <?php endwhile; ?>
-                    <?php wp_reset_postdata(); ?>
+                        <!-- /wp:button -->
+                    <?php endif; ?>
+                    
+                    <?php if ($button_url && $button_text): ?>
+                        <!-- wp:button {"className":"btn-white"} -->
+                        <div class="wp-block-button btn-white">
+                            <a class="wp-block-button__link" href="<?php echo esc_url($button_url); ?>">
+                                <?php echo esc_html($button_text); ?>
+                            </a>
+                        </div>
+                        <!-- /wp:button -->
+                    <?php endif; ?>
+                </div>
+                <!-- /wp:buttons -->
+            </div>
+            <!-- /wp:column -->
+            
+            <!-- wp:column {"width":"50%"} -->
+            <div class="wp-block-column" style="flex-basis:50%">
+                <?php if ($banner_image): ?>
+                    <!-- wp:image {"align":"center","className":"hero-image"} -->
+                    <figure class="wp-block-image aligncenter hero-image">
+                        <img src="<?php echo esc_url($banner_image); ?>" alt="Hero Image"/>
+                    </figure>
+                    <!-- /wp:image -->
                 <?php endif; ?>
             </div>
+            <!-- /wp:column -->
         </div>
+        <!-- /wp:columns -->
     </div>
     <!-- /wp:group -->
+    <?php endwhile; ?>
+<?php endif; ?>
 
-    <!-- Instagram Feed Section -->
-    <!-- wp:group {"className":"instagram-feed","layout":{"type":"constrained"}} -->
-    <div class="wp-block-group instagram-feed">
-        <div class="container">
-            <div class="row pb-5 mb-1">
-                <div class="col-lg-12 text-center text-lg-start text-md-start col-12">
-                    <!-- wp:heading {"level":2} -->
-                    <h2>Connect with Us on Instagram</h2>
-                    <!-- /wp:heading -->
+<!-- Reviews Section -->
+<!-- wp:group {"className":"reviews"} -->
+<div class="wp-block-group reviews">
+    <!-- wp:shortcode -->
+    [grw id=1293]
+    <!-- /wp:shortcode -->
+</div>
+<!-- /wp:group -->
+
+<?php if (have_rows('seller_experience')): ?>
+    <?php while (have_rows('seller_experience')): the_row();
+        $image = get_sub_field('image');
+        $title = get_sub_field('title');
+        $content = get_sub_field('content');
+        $button_text = get_sub_field('button_text');
+        $button_url = get_sub_field('button_url');
+    ?>
+    <!-- wp:group {"className":"marketing-sells"} -->
+    <div class="wp-block-group marketing-sells" data-aos="fade-up" data-aos-delay="200">
+        <!-- wp:columns -->
+        <div class="wp-block-columns">
+            <!-- wp:column {"width":"50%"} -->
+            <div class="wp-block-column" style="flex-basis:50%">
+                <!-- wp:heading {"level":2} -->
+                <h2><?php echo esc_html($title); ?></h2>
+                <!-- /wp:heading -->
+                
+                <!-- wp:paragraph -->
+                <?php echo wp_kses_post($content); ?>
+                <!-- /wp:paragraph -->
+                
+                <!-- wp:button -->
+                <div class="wp-block-button">
+                    <a class="wp-block-button__link" href="<?php echo esc_url($button_url); ?>">
+                        <?php echo esc_html($button_text); ?>
+                    </a>
                 </div>
+                <!-- /wp:button -->
             </div>
+            <!-- /wp:column -->
             
-            <div class="row">
-                <div class="col-12">
-                    <!-- wp:shortcode -->
-                    [instagram-feed feed=1]
-                    <!-- /wp:shortcode -->
-                </div>
+            <!-- wp:column {"width":"50%"} -->
+            <div class="wp-block-column" style="flex-basis:50%">
+                <?php if ($image): ?>
+                    <!-- wp:image -->
+                    <figure class="wp-block-image">
+                        <img src="<?php echo esc_url($image); ?>"/>
+                    </figure>
+                    <!-- /wp:image -->
+                <?php endif; ?>
             </div>
+            <!-- /wp:column -->
         </div>
+        <!-- /wp:columns -->
     </div>
     <!-- /wp:group -->
+    <?php endwhile; ?>
+<?php endif; ?>
 
-    <!-- Footer CTA Section -->
-    <!-- wp:group {"className":"foot-cta","layout":{"type":"constrained"}} -->
-    <div class="wp-block-group foot-cta">
-        <div class="container">
-            <div class="cta-wrapper">
-                <div class="row align-items-center justify-content-between justify-content-md-center">
-                    <div class="col-lg-5 col-md-10 col-12">
-                        <?php $wtitle = get_field('widget_title', 'option'); ?>
-                        <?php if ($wtitle): ?>
-                            <!-- wp:heading {"level":2} -->
-                            <h2><?php echo esc_html($wtitle); ?></h2>
-                            <!-- /wp:heading -->
-                        <?php endif; ?>
-                    </div>
-                    
-                    <div class="col-lg-6 col-md-12 col-12">
-                        <div class="d-flex justify-content-between">
-                            <?php $phone = get_field('phone', 'option'); ?>
-                            <?php if ($phone): ?>
-                                <!-- wp:buttons -->
-                                <div class="wp-block-buttons">
-                                    <!-- wp:button {"className":"btn-white"} -->
-                                    <div class="wp-block-button">
-                                        <a class="wp-block-button__link btn-white" href="tel:<?php echo preg_replace('/\D/', '', $phone); ?>">
-                                            <i class="fa fa-phone"></i> <?php echo esc_html($phone); ?>
-                                        </a>
-                                    </div>
-                                    <!-- /wp:button -->
-                                </div>
-                                <!-- /wp:buttons -->
-                            <?php endif; ?>
-                            
-                            <?php $email = get_field('email', 'option'); ?>
-                            <?php if ($email): ?>
-                                <!-- wp:buttons -->
-                                <div class="wp-block-buttons">
-                                    <!-- wp:button {"className":"btn-white"} -->
-                                    <div class="wp-block-button">
-                                        <a class="wp-block-button__link btn-white" href="mailto:<?php echo esc_attr($email); ?>">
-                                            <i class="fa fa-chevron-left"></i> <?php echo esc_html($email); ?>
-                                        </a>
-                                    </div>
-                                    <!-- /wp:button -->
-                                </div>
-                                <!-- /wp:buttons -->
-                            <?php endif; ?>
-                        </div>
-                    </div>
-                </div>
+<?php if (have_rows('buyer_experience')): ?>
+    <?php while (have_rows('buyer_experience')): the_row();
+        $image = get_sub_field('image');
+        $title = get_sub_field('title');
+        $content = get_sub_field('content');
+        $button_text = get_sub_field('button_text');
+        $button_url = get_sub_field('button_url');
+    ?>
+    <!-- wp:group {"className":"marketing-sells bg-white"} -->
+    <div class="wp-block-group marketing-sells bg-white" data-aos="fade-up" data-aos-delay="200">
+        <!-- wp:columns -->
+        <div class="wp-block-columns">
+            <!-- wp:column {"width":"50%"} -->
+            <div class="wp-block-column" style="flex-basis:50%">
+                <?php if ($image): ?>
+                    <!-- wp:image -->
+                    <figure class="wp-block-image">
+                        <img src="<?php echo esc_url($image); ?>"/>
+                    </figure>
+                    <!-- /wp:image -->
+                <?php endif; ?>
             </div>
+            <!-- /wp:column -->
+            
+            <!-- wp:column {"width":"50%"} -->
+            <div class="wp-block-column" style="flex-basis:50%">
+                <!-- wp:heading {"level":2} -->
+                <h2><?php echo esc_html($title); ?></h2>
+                <!-- /wp:heading -->
+                
+                <!-- wp:paragraph -->
+                <?php echo wp_kses_post($content); ?>
+                <!-- /wp:paragraph -->
+                
+                <!-- wp:button -->
+                <div class="wp-block-button">
+                    <a class="wp-block-button__link" href="<?php echo esc_url($button_url); ?>">
+                        <?php echo esc_html($button_text); ?>
+                    </a>
+                </div>
+                <!-- /wp:button -->
+            </div>
+            <!-- /wp:column -->
         </div>
+        <!-- /wp:columns -->
     </div>
     <!-- /wp:group -->
-</main>
+    <?php endwhile; ?>
+<?php endif; ?>
+
+<?php if (have_rows('ask_peter')): ?>
+    <?php while (have_rows('ask_peter')): the_row();
+        $title = get_sub_field('title');
+        $content = get_sub_field('content');
+        $button_text = get_sub_field('button_text');
+        $button_url = get_sub_field('button_url');
+    ?>
+    <!-- wp:group {"className":"informed-consumers"} -->
+    <div class="wp-block-group informed-consumers" data-aos="fade-up" data-aos-delay="200">
+        <!-- wp:heading {"textAlign":"center"} -->
+        <h2 class="has-text-align-center"><?php echo esc_html($title); ?></h2>
+        <!-- /wp:heading -->
+        
+        <!-- wp:paragraph {"align":"center"} -->
+        <p class="has-text-align-center"><?php echo wp_kses_post($content); ?></p>
+        <!-- /wp:paragraph -->
+        
+        <!-- wp:query {"query":{"perPage":1,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":false}} -->
+        <div class="wp-block-query">
+            <!-- wp:post-template -->
+                <!-- wp:columns -->
+                <div class="wp-block-columns">
+                    <!-- wp:column {"width":"66.66%"} -->
+                    <div class="wp-block-column" style="flex-basis:66.66%">
+                        <!-- wp:post-title {"level":3} /-->
+                        <!-- wp:post-excerpt /-->
+                    </div>
+                    <!-- /wp:column -->
+                    
+                    <!-- wp:column {"width":"33.33%"} -->
+                    <div class="wp-block-column" style="flex-basis:33.33%">
+                        <!-- wp:post-featured-image /-->
+                    </div>
+                    <!-- /wp:column -->
+                </div>
+                <!-- /wp:columns -->
+            <!-- /wp:post-template -->
+        </div>
+        <!-- /wp:query -->
+        
+        <!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} -->
+        <div class="wp-block-buttons">
+            <!-- wp:button -->
+            <div class="wp-block-button">
+                <a class="wp-block-button__link" href="<?php echo esc_url($button_url); ?>">
+                    <?php echo esc_html($button_text); ?>
+                </a>
+            </div>
+            <!-- /wp:button -->
+        </div>
+        <!-- /wp:buttons -->
+    </div>
+    <!-- /wp:group -->
+    <?php endwhile; ?>
+<?php endif; ?>
+
+<?php if (have_rows('about')): ?>
+    <?php while (have_rows('about')): the_row();
+        $image = get_sub_field('image');
+        $title = get_sub_field('title');
+        $content = get_sub_field('content');
+        $button_text = get_sub_field('button_text');
+        $button_url = get_sub_field('button_url');
+    ?>
+    <!-- wp:group {"className":"get-to-know"} -->
+    <div class="wp-block-group get-to-know" data-aos="fade-up" data-aos-delay="200">
+        <!-- wp:columns -->
+        <div class="wp-block-columns">
+            <!-- wp:column {"width":"50%"} -->
+            <div class="wp-block-column" style="flex-basis:50%">
+                <!-- wp:heading {"level":2} -->
+                <h2><?php echo esc_html($title); ?></h2>
+                <!-- /wp:heading -->
+                
+                <!-- wp:paragraph -->
+                <?php echo wp_kses_post($content); ?>
+                <!-- /wp:paragraph -->
+                
+                <!-- wp:button -->
+                <div class="wp-block-button">
+                    <a class="wp-block-button__link" href="<?php echo esc_url($button_url); ?>">
+                        <?php echo esc_html($button_text); ?>
+                    </a>
+                </div>
+                <!-- /wp:button -->
+            </div>
+            <!-- /wp:column -->
+            
+            <!-- wp:column {"width":"50%"} -->
+            <div class="wp-block-column" style="flex-basis:50%">
+                <?php if ($image): ?>
+                    <!-- wp:image {"className":"fig-background"} -->
+                    <figure class="wp-block-image fig-background">
+                        <img src="<?php echo esc_url($image); ?>"/>
+                    </figure>
+                    <!-- /wp:image -->
+                <?php endif; ?>
+            </div>
+            <!-- /wp:column -->
+        </div>
+        <!-- /wp:columns -->
+    </div>
+    <!-- /wp:group -->
+    <?php endwhile; ?>
+<?php endif; ?>
+
+<?php if (have_rows('properties')): ?>
+    <?php while (have_rows('properties')): the_row();
+        $title = get_sub_field('title');
+        $button_text = get_sub_field('button_text');
+        $button_url = get_sub_field('button_url');
+    ?>
+    <!-- wp:group {"className":"explore propeties-section"} -->
+    <div class="wp-block-group explore propeties-section">
+        <!-- wp:heading {"level":2} -->
+        <h2><?php echo esc_html($title); ?></h2>
+        <!-- /wp:heading -->
+        
+        <!-- wp:buttons -->
+        <div class="wp-block-buttons">
+            <!-- wp:button -->
+            <div class="wp-block-button">
+                <a class="wp-block-button__link" href="<?php echo esc_url($button_url); ?>">
+                    <?php echo esc_html($button_text); ?>
+                </a>
+            </div>
+            <!-- /wp:button -->
+        </div>
+        <!-- /wp:buttons -->
+        
+        <!-- wp:shortcode -->
+        [properties template="grid" status="EV" limit="3"]
+        <!-- /wp:shortcode -->
+    </div>
+    <!-- /wp:group -->
+    <?php endwhile; ?>
+<?php endif; ?>
+
+<?php if (have_rows('ellis_presents')): ?>
+    <?php while (have_rows('ellis_presents')): the_row();
+        $title = get_sub_field('title');
+        $button_text = get_sub_field('button_text');
+        $button_url = get_sub_field('button_url');
+    ?>
+    <!-- wp:group {"className":"explore"} -->
+    <div class="wp-block-group explore">
+        <!-- wp:heading {"level":2} -->
+        <h2><?php echo esc_html($title); ?></h2>
+        <!-- /wp:heading -->
+        
+        <!-- wp:buttons -->
+        <div class="wp-block-buttons">
+            <!-- wp:button -->
+            <div class="wp-block-button">
+                <a class="wp-block-button__link" href="<?php echo esc_url($button_url); ?>">
+                    <?php echo esc_html($button_text); ?>
+                </a>
+            </div>
+            <!-- /wp:button -->
+        </div>
+        <!-- /wp:buttons -->
+        
+        <!-- wp:query {"query":{"perPage":3,"pages":0,"offset":0,"postType":"ellis-presents","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":false}} -->
+        <div class="wp-block-query">
+            <!-- wp:post-template -->
+                <!-- wp:columns -->
+                <div class="wp-block-columns">
+                    <!-- wp:column -->
+                    <div class="wp-block-column">
+                        <!-- wp:post-featured-image {"className":"card-img-top"} /-->
+                        <!-- wp:post-title {"level":3} /-->
+                        <!-- wp:post-excerpt /-->
+                        <!-- wp:post-date /-->
+                    </div>
+                    <!-- /wp:column -->
+                </div>
+                <!-- /wp:columns -->
+            <!-- /wp:post-template -->
+        </div>
+        <!-- /wp:query -->
+    </div>
+    <!-- /wp:group -->
+    <?php endwhile; ?>
+<?php endif; ?>
+
+<!-- wp:group {"className":"instagram-feed"} -->
+<div class="wp-block-group instagram-feed">
+    <!-- wp:heading {"textAlign":"center"} -->
+    <h2 class="has-text-align-center">Connect with Us on Instagram</h2>
+    <!-- /wp:heading -->
+    
+    <!-- wp:shortcode -->
+    [instagram-feed feed=1]
+    <!-- /wp:shortcode -->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:group {"className":"foot-cta"} -->
+<div class="wp-block-group foot-cta" data-aos="fade-up" data-aos-delay="200">
+    <?php $wtitle = get_field('widget_title', 'option'); ?>
+    <!-- wp:heading {"level":2} -->
+    <h2><?php echo esc_html($wtitle); ?></h2>
+    <!-- /wp:heading -->
+    
+    <!-- wp:buttons -->
+    <div class="wp-block-buttons">
+        <?php $phone = get_field('phone', 'option'); ?>
+        <?php if ($phone): ?>
+            <!-- wp:button {"className":"btn-white"} -->
+            <div class="wp-block-button btn-white">
+                <a class="wp-block-button__link" href="tel:<?php echo esc_attr(preg_replace('/\D/', '', $phone)); ?>">
+                    <i class="fa fa-phone"></i> <?php echo esc_html($phone); ?>
+                </a>
+            </div>
+            <!-- /wp:button -->
+        <?php endif; ?>
+        
+        <?php $email = get_field('email', 'option'); ?>
+        <?php if ($email): ?>
+            <!-- wp:button {"className":"btn-white"} -->
+            <div class="wp-block-button btn-white">
+                <a class="wp-block-button__link" href="mailto:<?php echo esc_attr($email); ?>">
+                    <i class="fa fa-envelope"></i> <?php echo esc_html($email); ?>
+                </a>
+            </div>
+            <!-- /wp:button -->
+        <?php endif; ?>
+    </div>
+    <!-- /wp:buttons -->
+</div>
 <!-- /wp:group -->
 
 <!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->
